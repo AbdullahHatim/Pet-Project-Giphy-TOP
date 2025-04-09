@@ -17,23 +17,23 @@ fetchNewImage()
 
 function fetchNewImage () {
   img.src = ''
-  fetch(`https://api.giphy.com/v1/gifs/translate?api_key=${currentKey}&${searchParam}`)
-    .then(function (response) {
+  fetchFromGiphy()
+  async function fetchFromGiphy () {
+    try {
+      const response = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=${currentKey}&${searchParam}`)
       if (!response.ok) throw new Error(`Error Code: ${response.status}`)
-      return response.json()
-    })
-    .then(function (json) {
+
+      const json = await response.json()
       img.src = json.data.images.original.url
-    })
-    .catch(function (error) {
+    } catch (error) {
       if (error.status === 429) {
         console.info('Too Many Requests, Switching API Key')
         currentKey = API_KEYS[!currentKey]
         fetchNewImage()
       }
-
       console.error('Error: ' + error)
-    })
+    }
+  }
 }
 
 // Recieve Input
