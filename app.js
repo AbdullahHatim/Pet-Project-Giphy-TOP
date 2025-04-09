@@ -52,6 +52,7 @@ searchForm.addEventListener('submit', (e) => {
 const fetchNewImageButton = document.querySelector('.fetch-new-image')
 fetchNewImageButton.onclick = (e) => {
   e.stopPropagation()
+  setSearchParam(searchInput.value)
   fetchNewImage(searchInput.value)
 }
 
