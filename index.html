@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: #4a708b;
+        background-image: url('https://www.transparenttextures.com/patterns/bright-squares.png');
+
+        /* background-repeat: no-repeat; */
+        /* background-position: center; */
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        height: 100svh;
+        align-items: center;
+        justify-content: center;
+        img {
+          user-select: none;
+        }
+      }
+      .fetch-new-image {
+        font-size: min(10vh, 8em);
+        border-radius: 60px;
+        padding: 0.4em;
+        color: white;
+        background-color: cadetblue;
+        border: none;
+        user-select: none;
+      }
+      .search-form {
+        .search-input {
+          width: max(500px, 60vw);
+          font-size: 3em;
+          border-radius: 60px;
+          padding: 0.4em;
+          border: none;
+          &:active {
+            border: 1px solid black;
+          }
+        }
+      }
+    </style>
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <form class="search-form">
+      <input type="text" class="search-input" />
+    </form>
+    <img src="#" alt="Searching..." />
+    <button class="fetch-new-image">Change</button>
+  </body>
+</html>
