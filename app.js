@@ -15,12 +15,9 @@ function setSearchParam (string) {
 const img = document.querySelector('img')
 fetchNewImage()
 
-function fetchNewImage (param = searchParam.get('s')) {
-  setSearchParam(param)
-  console.log(searchParam.toString())
+function fetchNewImage () {
   img.src = ''
-  const request = new Request(`https://api.giphy.com/v1/gifs/translate?api_key=${currentKey}&${searchParam}`)
-  fetch(request.clone())
+  fetch(`https://api.giphy.com/v1/gifs/translate?api_key=${currentKey}&${searchParam}`)
     .then(function (response) {
       if (!response.ok) throw new Error(`Error Code: ${response.status}`)
       return response.json()
@@ -32,7 +29,7 @@ function fetchNewImage (param = searchParam.get('s')) {
       if (error.status === 429) {
         console.info('Too Many Requests, Switching API Key')
         currentKey = API_KEYS[!currentKey]
-        fetch(request.clone())
+        fetchNewImage()
       }
 
       console.error('Error: ' + error)
@@ -47,13 +44,15 @@ searchInput.addEventListener('click', e => { e.stopPropagation() })
 
 searchForm.addEventListener('submit', (e) => {
   e.preventDefault()
-  fetchNewImage(searchInput.value)
+  setSearchParam(searchInput.value)
+  fetchNewImage()
 })
 
 // Change Gif
 const fetchNewImageButton = document.querySelector('.fetch-new-image')
 fetchNewImageButton.onclick = (e) => {
   e.stopPropagation()
+  setSearchParam(searchInput.value)
   fetchNewImage(searchInput.value)
 }
 
