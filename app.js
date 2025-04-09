@@ -15,8 +15,9 @@ function setSearchParam (string) {
 const img = document.querySelector('img')
 fetchNewImage()
 
-function fetchNewImage (param = 'void') {
+function fetchNewImage (param = searchParam.get('s')) {
   setSearchParam(param)
+  console.log(searchParam.toString())
   img.src = ''
   const request = new Request(`https://api.giphy.com/v1/gifs/translate?api_key=${currentKey}&${searchParam}`)
   fetch(request.clone())
@@ -38,13 +39,6 @@ function fetchNewImage (param = 'void') {
     })
 }
 
-// Fetch a new Gif
-const fetchNewImageButton = document.querySelector('.fetch-new-image')
-fetchNewImageButton.onclick = (e) => {
-  e.stopPropagation()
-  fetchNewImage()
-}
-
 // Recieve Input
 const searchForm = document.querySelector('.search-form')
 const searchInput = searchForm.querySelector('.search-input')
@@ -55,6 +49,13 @@ searchForm.addEventListener('submit', (e) => {
   e.preventDefault()
   fetchNewImage(searchInput.value)
 })
+
+// Change Gif
+const fetchNewImageButton = document.querySelector('.fetch-new-image')
+fetchNewImageButton.onclick = (e) => {
+  e.stopPropagation()
+  fetchNewImage(searchInput.value)
+}
 
 // Misc: Change Body Color on Click
 document.body.addEventListener('click', () => {
