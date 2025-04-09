@@ -39,8 +39,8 @@ function fetchNewImage () {
 // Recieve Input
 const searchForm = document.querySelector('.search-form')
 const searchInput = searchForm.querySelector('.search-input')
-searchInput.value = 'void'
-searchInput.addEventListener('click', e => { e.stopPropagation() })
+searchInput.value = searchParam.get('s') // default value
+searchInput.addEventListener('click', e => { e.stopPropagation() }) // Didn't want the input to change background color
 
 searchForm.addEventListener('submit', (e) => {
   e.preventDefault()
@@ -48,11 +48,10 @@ searchForm.addEventListener('submit', (e) => {
   fetchNewImage()
 })
 
-// Change Gif
+// Change Gif Button
 const fetchNewImageButton = document.querySelector('.fetch-new-image')
 fetchNewImageButton.onclick = (e) => {
   e.stopPropagation()
-  setSearchParam(searchInput.value)
   fetchNewImage(searchInput.value)
 }
 
